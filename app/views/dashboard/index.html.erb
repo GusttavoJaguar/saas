@@ -1,0 +1,7 @@
+<h1>Dashboard#index</h1>
+<p>Find me in app/views/dashboard/index.html.erb</p>
+
+
+<%= link_to "Voltar para a página pública", root_path, class: "btn btn-primary" %>
+<%= link_to "Gerenciar minha loja", stores_path, class: "btn btn-secondary" %>
+<%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>

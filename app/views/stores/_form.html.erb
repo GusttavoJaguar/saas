@@ -1,0 +1,54 @@
+<%= form_with(model: store) do |form| %>
+  <% if store.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(store.errors.count, "error") %> prohibited this store from being saved:</h2>
+
+      <ul>
+        <% store.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.textarea :description %>
+  </div>
+
+  <div>
+    <%= form.label :primary_color, "Cor primária" %>
+    <%= form.color_field :primary_color, class: "form-control form-control-color" %>
+  </div>
+
+  <div>
+    <%= form.label :secondary_color, "Cor secundária" %>
+    <%= form.color_field :secondary_color, class: "form-control form-control-color" %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
+  </div>
+ <br>
+  <!-- LOGO -->
+  <div class="mb-3">
+    <%= form.label :logo, "Logo da Loja" %>
+    <%= form.file_field :logo, class: "form-control" %>
+  </div>
+
+  <!-- GALERIA -->
+  <div class="mb-3">
+    <%= form.label :gallery_images, "Galeria de Fotos" %>
+    <%= form.file_field :gallery_images, multiple: true, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
