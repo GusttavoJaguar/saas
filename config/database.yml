@@ -88,9 +88,6 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
-    <<: *default
-    database: saas_production
-    username: saas
-    password: <%= ENV["DATABASE_PASSWORD"] %>
-    url: <%= ENV["DATABASE_URL"] %>
+  url: <%= ENV["DATABASE_URL"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  
