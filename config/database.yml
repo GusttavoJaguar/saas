@@ -32,7 +32,7 @@ test:
   database: saas_test
 
 production:
-  primary:
+  primary: *default
     url: <%= ENV["DATABASE_URL"] %>
 
   queue:
