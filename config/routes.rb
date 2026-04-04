@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
-  get "dashboard/index"
   get "public/home"
   get "public/show"
 
 
   # Defines the root path route ("/")
-  root "public#show"
+  authenticated :user do
+    root "dashboard#index", as: :authenticated_root
+  end
+
+  unauthenticated do
+    root "public#home"
+  end
 
 
   resources :stores do
@@ -16,7 +21,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   
-  get "dashboard" => "dashboard#index"
+  get "dashboard", to: "dashboard#index"
 
   namespace :admin do
     resources :stores, only: [:index, :show, :edit, :destroy]
