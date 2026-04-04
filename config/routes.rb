@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   unauthenticated do
-    root "public#home"
+    root "public#show"
   end
 
 
