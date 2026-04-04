@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Saas</title>
+    <title>Saas Landing Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
@@ -14,7 +14,7 @@
 </div>
 
 <div class="container d-flex justify-content-center align-items-center p-5" style="min-height: 23vh;">
-    <%= link_to "Voltar para a página pública", root_path, class: "btn btn-primary p-2 m-2" %>
+    <%= link_to "Voltar para a página pública", public_show_path, class: "btn btn-primary p-2 m-2" %>
     <%= link_to "Gerenciar minha loja", stores_path, class: "btn btn-secondary p-2 m-2" %>
     <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
 </div>

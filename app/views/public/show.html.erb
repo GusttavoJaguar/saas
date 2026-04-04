@@ -32,7 +32,7 @@
                   style: "width: 50px; height: 50px; object-fit: cover; border-radius: 10px;" %>
               <% end %>
 
-              <strong>@<%= @store.name %></strong>
+              <strong>@<%= store.name %></strong>
 
             </div>
 
@@ -53,10 +53,8 @@
 
 <div class="text-center mt-3 p-3 border rounded m-3">                    
   <% if @user.present?%>
-    <%= link_to "login", new_user_session_path, class: "btn btn-success" %>
-    <%= link_to "Voltar para a página pública", root_path, class: "btn btn-primary" %>
-    <%= link_to "Gerenciar minha loja", stores_path, class: "btn btn-secondary" %><br><br>
-    <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+    <%= link_to "login", new_user_session_path, class: "btn btn-success m-2" %>
+    <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "m-2 btn btn-danger" %>
   <% end %>
 </div>
 
