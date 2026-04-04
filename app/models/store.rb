@@ -1,9 +1,11 @@
 class Store < ApplicationRecord
+  
   belongs_to :user
   has_many :photos, dependent: :destroy
   has_one_attached :logo
   has_many_attached :gallery_images
   validates :primary_color, :secondary_color, format: { with: /\A#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\z/, message: "deve ser uma cor hex válida" }, allow_blank: true
+
 
   def text_color_for(background_color)
     return "#000" unless background_color
