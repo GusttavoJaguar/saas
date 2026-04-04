@@ -7,50 +7,55 @@
   </head>
 
 
-<h1 class="text-center mt-5">Bem-vindo ao nosso SaaS de criação de lojas online!</h1>
-<p class="text-center mb-5">Acesse sua loja personalizada ou explore as lojas de outros usuários.</p>
+
+  <h1 class="text-center mt-5">Bem-vindo ao nosso SaaS de criação de lojas online!</h1>
+  <p class="text-center mb-5">Acesse sua loja personalizada ou explore as lojas de outros usuários.</p>
 
 
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
 
-  <div class="w-100" style="max-width: 400px;">
+    <div class="w-100" style="max-width: 400px;">
 
-    <h2 class="text-center mb-4"></h2>
+      <h2 class="text-center mb-4"></h2>
 
-    <% @stores.each do |store| %>
+      <% @stores.each do |store| %>
 
-      <div class="card mb-3 shadow-sm border-0">
+        <div class="card mb-3 shadow-sm border-0">
 
-        <div class="card-body d-flex align-items-center justify-content-between">
+          <div class="card-body d-flex align-items-center justify-content-between">
 
-          <!-- LOGO + NOME -->
-          <div class="d-flex align-items-center gap-3">
+            <!-- LOGO + NOME -->
+            <div class="d-flex align-items-center gap-3">
 
-            <% if store.logo.attached? %>
-              <%= image_tag store.logo,
-                style: "width: 50px; height: 50px; object-fit: cover; border-radius: 10px;" %>
-            <% end %>
+              <% if store.logo.attached? %>
+                <%= image_tag store.logo,
+                  style: "width: 50px; height: 50px; object-fit: cover; border-radius: 10px;" %>
+              <% end %>
 
-            <strong>@<%= @store.name %></strong>
+              <strong>@<%= @store.name %></strong>
+
+            </div>
+
+            <!-- BOTÃO -->
+            <%= link_to "Abrir",
+                  store_path(store),
+                  class: "btn btn-sm btn-primary" %>
 
           </div>
 
-          <!-- BOTÃO -->
-          <%= link_to "Abrir",
-                store_path(store),
-                class: "btn btn-sm btn-primary" %>
-
         </div>
 
-      </div>
+      <% end %>
 
-    <% end %>
+    </div>
 
   </div>
 
-</div>
-
-<%= link_to "Voltar para a página pública", root_path, class: "btn btn-primary" %>
-<%= link_to "Gerenciar minha loja", stores_path, class: "btn btn-secondary" %>
 <%= link_to "login", new_user_session_path, class: "btn btn-success" %>
-<%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+
+<% if @user.present?%>
+  <%= link_to "Voltar para a página pública", root_path, class: "btn btn-primary" %>
+  <%= link_to "Gerenciar minha loja", stores_path, class: "btn btn-secondary" %>
+  <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+<% end %>
+

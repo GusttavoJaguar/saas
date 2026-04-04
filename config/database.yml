@@ -35,7 +35,7 @@ production:
   
   primary: 
     <<: *default
-      url: <%= ENV["DATABASE_URL"] %>
+    url: <%= ENV["DATABASE_URL"] %>
 
   queue:
     <<: *default

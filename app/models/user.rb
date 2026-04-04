@@ -6,5 +6,7 @@ class User < ApplicationRecord
          
   has_many :stores
 
+  before_validation :set_default_role, on: :create
+
   enum :role, { user: 0, admin: 1 }
 end
