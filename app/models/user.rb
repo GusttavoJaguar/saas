@@ -9,4 +9,13 @@ class User < ApplicationRecord
   before_validation :set_default_role, on: :create
 
   enum :role, { user: 0, admin: 1 }
+
+
+  private
+
+  def set_default_role
+    self.role ||= "user"
+  end
+
+
 end
