@@ -51,11 +51,12 @@
 
   </div>
 
-<%= link_to "login", new_user_session_path, class: "btn btn-success" %>
-
-<% if @user.present?%>
-  <%= link_to "Voltar para a página pública", root_path, class: "btn btn-primary" %>
-  <%= link_to "Gerenciar minha loja", stores_path, class: "btn btn-secondary" %>
-  <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
-<% end %>
+<div class="text-center mt-3 p-3 border rounded m-3">                    
+  <% if @user.present?%>
+    <%= link_to "login", new_user_session_path, class: "btn btn-success" %>
+    <%= link_to "Voltar para a página pública", root_path, class: "btn btn-primary" %>
+    <%= link_to "Gerenciar minha loja", stores_path, class: "btn btn-secondary" %><br><br>
+    <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+  <% end %>
+</div>
 
