@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "public/home"
-  get "public/show"
+
 
 
   # Defines the root path route ("/")
@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   unauthenticated do
-    root "public#show"
+    root "public#home"
   end
 
 
@@ -22,8 +22,10 @@ Rails.application.routes.draw do
 
   
   get "dashboard", to: "dashboard#index"
+  
 
   namespace :admin do
+    get "dashboard", to: "dashboard#index"
     resources :stores, only: [:index, :show, :edit, :destroy]
     resources :users, only: [:index, :show, :edit, :destroy]
   end
@@ -32,12 +34,12 @@ Rails.application.routes.draw do
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  get "up" => "rails/health#home", as: :rails_health_check
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
+  
   # Página pública
-   get "/store/:id", to: "public#show"
+   get "/store/:id", to: "public#home"
 end
