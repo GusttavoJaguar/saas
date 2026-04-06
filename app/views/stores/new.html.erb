@@ -1,11 +1,11 @@
 <% content_for :title, "New store" %>
 
-<h1>New store</h1>
+<h1 class="text-center mt-5">Criar nova loja</h1>
 
 <%= render "form", store: @store %>
 
 <br>
 
-<div>
-  <%= link_to "Back to stores", stores_path %>
+<div class="text-center mt-3 p-3 border rounded m-3">
+  <%= link_to "Back to stores", stores_path, class: "btn btn-primary" %>
 </div>

@@ -1,12 +1,21 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Saas Landing Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+
 <% content_for :title, "Editing store" %>
 
-<h1>Editing store</h1>
-
-<%= render "form", store: @store %>
-
+<h1 class="text-center mt-5">Editar loja</h1>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="w-100" style="max-width: 600px;">
+  <%= render "form", store: @store %>
+</div>
+</div>
 <br>
 
 <div>
-  <%= link_to "Show this store", @store %> |
-  <%= link_to "Back to stores", stores_path %>
+  <%= link_to "Show this store", @store, class: "btn btn-primary" %> |
+  <%= link_to "Back to stores", stores_path, class: "btn btn-secondary" %>
 </div>

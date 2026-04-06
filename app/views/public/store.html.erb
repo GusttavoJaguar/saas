@@ -1,0 +1,84 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SaaS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+<nav class="navbar navbar-expand-lg" style="background-color: <%= @store&.primary_color || '#fff' %>">
+  <div class="container">
+    <a class="navbar-brand" href="#"></a>
+
+    <ul class="navbar-nav">
+      <li><a class="nav-link" href="#">Início</a></li>
+      <li><a class="nav-link" href="#sobre">Sobre</a></li>
+      <li><a class="nav-link" href="#galeria">Galeria</a></li>
+      <li><a class="nav-link" href="#agenda">Agenda</a></li>
+      <li><a class="nav-link" href="#contato">Contato</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<!-- background -->
+<div class="py-5" style="background-color: <%= @store&.secondary_color || '#fff' %>">
+  <div class="container text-center text-white">
+  </div>
+
+
+<div class="container mt-5 text-center">
+
+  <!-- LOGO -->
+  
+  <% if @store&.logo&.attached? %>
+  <div class="mb-4">
+    <%= image_tag @store.logo,
+     class: "img-fluid shadow",
+     style: "max-height: 150px; border-radius: 50%;" %>
+  </div>
+  <% end %>
+
+
+  <% if @store&.name.present? %>
+    <h1 class="mb-3"><%= @store.name %></h1>
+  <% else %>
+    <h1 class="mb-3">Minha Loja</h1>
+  <% end %>
+
+
+  <!-- DESCRIÇÃO -->
+  <% if @store&.description.present? %>
+    <p class="text-muted mx-auto" style="max-width: 600px;">
+      <%= @store.description %>
+    </p>
+  <% else %>
+    <p class="text-muted mx-auto" style="max-width: 600px;">
+      Bem-vindo à minha loja! Aqui você acessou uma página em branco. Acesse a página de login para criar sua loja e personalizar esta página com suas informações, produtos e muito mais.
+    </p>
+    <%= link_to "Fazer Login", new_user_session_path %>
+  <% end %>
+
+</div>
+
+<!-- GALERIA -->
+
+<% if @store&.gallery_images.present? %>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Galeria</h2>
+    <div class="row justify-content-center">
+      <% @store.gallery_images.each do |image| %>
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-sm border-0 h-100">
+            <%= image_tag image,
+              class: "card-img-top",
+              style: "height: 250px; object-fit: cover;" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<footer class="text-center p-3" style="background-color: <%= @store&.primary_color || '#fff' %>">
+  © 2026 Gusttavo Jaguar. Todos os direitos reservados.
+</footer>

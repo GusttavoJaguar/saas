@@ -37,9 +37,15 @@
             </div>
 
             <!-- BOTÃO -->
+            <% if user_signed_in? %>
             <%= link_to "Abrir",
                   store_path(store),
                   class: "btn btn-sm btn-primary" %>
+            <% else %>
+            <%= link_to "Abrir",
+                  public_store_path(store),
+                  class: "btn btn-sm btn-secondary" %>
+            <% end %>
 
           </div>
 

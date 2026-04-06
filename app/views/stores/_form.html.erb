@@ -1,3 +1,11 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Saas Landing Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+
 <%= form_with(model: store) do |form| %>
   <% if store.errors.any? %>
     <div style="color: red">
@@ -11,33 +19,33 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="mb-5 p-3 border rounded">
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="mb-5 p-3 border rounded">
     <%= form.label :description, style: "display: block" %>
-    <%= form.textarea :description %>
+    <%= form.textarea :description, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="mb-3 p-3 border rounded">
     <%= form.label :primary_color, "Cor primária" %>
     <%= form.color_field :primary_color, class: "form-control form-control-color" %>
   </div>
 
-  <div>
+  <div class="mb-3 p-3 border rounded">
     <%= form.label :secondary_color, "Cor secundária" %>
     <%= form.color_field :secondary_color, class: "form-control form-control-color" %>
   </div>
 
-  <div>
+  <div class="mb-3 p-3 border rounded">
     <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
+    <%= form.text_field :user_id, class: "form-control" %>
   </div>
  <br>
   <!-- LOGO -->
-  <div class="mb-3">
+  <div class="mb-3 d-flex flex-column">
     <%= form.label :logo, "Logo da Loja" %>
     <%= form.file_field :logo, class: "form-control" %>
   </div>

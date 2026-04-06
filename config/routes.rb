@@ -20,6 +20,12 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+
+  devise_scope :user do
+    get "admin/login", to: "admin/sessions#new"
+    post "admin/login", to: "admin/sessions#create"
+    delete "admin/logout", to: "admin/sessions#destroy"
+  end
   
   get "dashboard", to: "dashboard#index"
   
@@ -41,5 +47,6 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   
   # Página pública
+   get "/public/store/:id", to: "public#store", as: :public_store
    get "/store/:id", to: "public#home"
 end
