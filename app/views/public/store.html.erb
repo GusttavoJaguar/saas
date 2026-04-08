@@ -79,6 +79,6 @@
   </div>
 <% end %>
 
-<footer class="text-center p-3" style="position: fixed; bottom: 0; width: 100%; background-color: <%= @store&.primary_color || '#fff' %> ">
+<footer class="text-center p-3" style="position: fixed; bottom: 0; width: 100%; background-color: <%= @store&.primary_color || '#fff' %>; color: <%= @store&.primary_text_color || @store&.text_color_for(@store&.primary_text_color) %> ">
   © 2026 Gusttavo Jaguar. Todos os direitos reservados.
 </footer>
