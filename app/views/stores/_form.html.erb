@@ -39,6 +39,22 @@
     <%= form.color_field :secondary_color, class: "form-control form-control-color" %>
   </div>
 
+
+
+ <div class="mb-3 p-3 border rounded">
+    <%= form.label :primary_text_color, "Cor do texto da Barra de Navegação" %>
+    <%= form.color_field :primary_text_color, class: "form-control form-control-color" %>
+  </div>
+
+  <div class="mb-3 p-3 border rounded">
+    <%= form.label :secondary_text_color, "Cor do texto da Página" %>
+    <%= form.color_field :secondary_text_color, class: "form-control form-control-color" %>
+  </div>
+
+
+
+
+
   <div class="mb-3 p-3 border rounded">
     <%= form.label :user_id, style: "display: block" %>
     <%= form.text_field :user_id, class: "form-control" %>

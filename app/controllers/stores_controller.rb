@@ -9,6 +9,7 @@ class StoresController < ApplicationController
 
   # GET /stores/1 or /stores/1.json
   def show
+    
   end
 
   # GET /stores/new
@@ -71,6 +72,8 @@ class StoresController < ApplicationController
         :description,
         :primary_color,
         :secondary_color,
+        :primary_text_color,
+        :secondary_text_color,
         :logo,
         :user_id,
         gallery_images: []
