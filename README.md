@@ -20,7 +20,6 @@ A stack tecnológica é baseada no ecossistema Ruby on Rails moderno (Rails 8), 
 | **Devise** | Gem padrão da comunidade Rails para autenticação de usuários (login, registro, recuperação de senha), fundamental para qualquer sistema SaaS. |
 | **Hotwire (Turbo & Stimulus)** | Tecnologias nativas do Rails para criar interfaces de usuário dinâmicas e responsivas (SPA-like) sem a complexidade de frameworks JavaScript pesados. |
 | **Solid Queue / Solid Cache** | Gems introduzidas no Rails 8 que utilizam o banco de dados (PostgreSQL) para gerenciar filas de background jobs e cache, simplificando a infraestrutura (dispensando Redis). |
-| **Kamal / Docker** | Ferramentas modernas de deploy e containerização, permitindo publicar a aplicação em qualquer servidor (VPS) de forma automatizada e consistente. |
 | **Bootstrap / Sass** | Framework CSS e pré-processador utilizados para estilização rápida e responsiva da interface do usuário. |
 
 
