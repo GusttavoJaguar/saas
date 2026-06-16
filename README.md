@@ -6,7 +6,7 @@ Autor: Gusttavo Jaguar
 Repositório: [saas](https://github.com/GusttavoJaguar/saas)
 
 Visão Geral do Projeto
-O projeto **SaaS** é uma aplicação web Full-Stack desenvolvida com o framework Ruby on Rails. O objetivo principal, conforme a descrição do repositório, é fornecer uma plataforma "Software as a Service" para a criação e controle de landing pages. Este é um projeto ambicioso que demonstra a capacidade de construir sistemas multi-inquilino (multi-tenant) e gerenciar recursos complexos.
+O projeto **SaaS - landing page** é uma aplicação web Full-Stack desenvolvida com o framework Ruby on Rails. O objetivo principal, conforme a descrição do repositório, é fornecer uma plataforma "Software as a Service" para a criação e controle de landing pages. Este é um projeto ambicioso que demonstra a capacidade de construir sistemas multi-inquilino (multi-tenant) e gerenciar recursos complexos.
 
 Tecnologias e Ferramentas Utilizadas
 A stack tecnológica é baseada no ecossistema Ruby on Rails moderno (Rails 8), incorporando as melhores práticas e ferramentas nativas para desenvolvimento ágil e escalável:
