@@ -70,5 +70,3 @@ gem "devise"
 gem "bootstrap"
 
 gem "sassc-rails"
-
-gem "image_processing", "~> 1.2"

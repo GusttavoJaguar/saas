@@ -1,33 +1,35 @@
 class StoresController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_store, only: %i[ show edit update destroy ]
+  before_action :set_store, only: %i[show edit update destroy]
 
-  # GET /stores or /stores.json
+  # GET /stores
   def index
-    @stores = Store.all
+    @stores = Store.new
+    @store = current_user.stores
   end
 
-  # GET /stores/1 or /stores/1.json
+  # GET /stores/1
   def show
-    
+    @user = User.find_by!(username: params[:username])
+    @stores = @user.stores
   end
 
   # GET /stores/new
   def new
-    @store = Store.new
+    @store = current_user.stores.build
   end
 
   # GET /stores/1/edit
   def edit
   end
 
-  # POST /stores or /stores.json
+  # POST /stores
   def create
-    @store = Store.new(store_params)
+    @store = current_user.stores.build(store_params)
 
     respond_to do |format|
       if @store.save
-        format.html { redirect_to @store, notice: "Store was successfully created." }
+        format.html { redirect_to @store, notice: "Store criada com sucesso." }
         format.json { render :show, status: :created, location: @store }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -36,11 +38,11 @@ class StoresController < ApplicationController
     end
   end
 
-  # PATCH/PUT /stores/1 or /stores/1.json
+  # PATCH/PUT /stores/1
   def update
     respond_to do |format|
       if @store.update(store_params)
-        format.html { redirect_to @store, notice: "Store was successfully updated.", status: :see_other }
+        format.html { redirect_to @store, notice: "Store atualizada com sucesso.", status: :see_other }
         format.json { render :show, status: :ok, location: @store }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,34 +51,32 @@ class StoresController < ApplicationController
     end
   end
 
-  # DELETE /stores/1 or /stores/1.json
+  # DELETE /stores/1
   def destroy
-    @store.destroy!
+    @store.destroy
 
     respond_to do |format|
-      format.html { redirect_to stores_path, notice: "Store was successfully destroyed.", status: :see_other }
+      format.html { redirect_to stores_path, notice: "Store removida com sucesso." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_store
-      @store = Store.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def store_params
-      params.require(:store).permit(
-        :name,
-        :description,
-        :primary_color,
-        :secondary_color,
-        :primary_text_color,
-        :secondary_text_color,
-        :logo,
-        :user_id,
-        gallery_images: []
-      )
-    end
+  def set_store
+    @store = current_user.stores.find(params[:id])
+  end
+
+  def store_params
+    params.require(:store).permit(
+      :name,
+      :description,
+      :primary_color,
+      :secondary_color,
+      :navbar_text_color,
+      :page_text_color,
+      :logo,
+      gallery_images: []
+    )
+  end
 end
