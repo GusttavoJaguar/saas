@@ -1,5 +1,5 @@
 class PublicController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
+  
   def home
     @user = User.find_by(username: params[:username])
 
@@ -24,7 +24,7 @@ class PublicController < ApplicationController
 
 
   def store
-    @store = Store.find(params[:id])
+    @store = Store.friendly.find(params[:id])
   end
 
 end

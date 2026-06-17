@@ -12,6 +12,7 @@ class StoresController < ApplicationController
   def show
     @user = User.find_by!(username: params[:username])
     @stores = @user.stores
+  
   end
 
   # GET /stores/new
@@ -64,7 +65,7 @@ class StoresController < ApplicationController
   private
 
   def set_store
-    @store = current_user.stores.find(params[:id])
+    @store = current_user.stores.friendly.find(params[:id])
   end
 
   def store_params

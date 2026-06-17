@@ -70,3 +70,5 @@ gem "devise"
 gem "bootstrap"
 
 gem "sassc-rails"
+
+gem 'friendly_id', '~> 5.5.0'

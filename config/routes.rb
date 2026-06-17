@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   get "public/home"
 
-
-
   # Defines the root path route ("/")
   authenticated :user do
     root "dashboard#index", as: :authenticated_root
@@ -48,5 +46,5 @@ Rails.application.routes.draw do
   
   # Página pública
    get "/public/store/:id", to: "public#store", as: :public_store
-   get "/store/:id", to: "public#home"
+   get "/home", to: "public#home"
 end

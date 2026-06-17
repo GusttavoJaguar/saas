@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <h1>Usuários</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Tipo</th>
+        <th>Qtd loja</th>
+        <th>Criado em</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role %></td>
+          <td><%= user.stores.count %></td>
+          <td><%= user.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+<h2 align="right">Total de usuários: <%= @users.count %></h2>
+<h2 align="right">Total de lojas: <%= Store.count %></h2>
+
+        
+
+
+</div>
