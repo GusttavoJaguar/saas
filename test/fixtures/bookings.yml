@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  store: one
+  name: MyString
+  email: MyString
+  phone: MyString
+  scheduled_at: 2026-06-21 22:26:33
+  notes: MyText
+  status: MyString
+
+two:
+  store: two
+  name: MyString
+  email: MyString
+  phone: MyString
+  scheduled_at: 2026-06-21 22:26:33
+  notes: MyText
+  status: MyString

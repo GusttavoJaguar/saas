@@ -50,9 +50,19 @@
           </div>
 
         </div>
-    <p>
+   
+   
+<div class="text-center mt-3 p-3 border rounded m-3">   
+     <p>
       <%= link_to "Show this store", store, class: "btn btn-outline-primary" %>
     </p>
+    
+     <p>
+      <%= link_to "Edit this store", edit_store_path(store), class: "btn btn-outline-secondary" %>  
+    <p>
+      <%= button_to "Delete this store", store, method: :delete, confirm: "Are you sure?", class: "btn btn-outline-danger" %>
+    </p>
+</div>
   <% end %>
     </div>
 </div>

@@ -1,0 +1,15 @@
+flowchart TD
+  %% Fluxo de Contatos de Clientes para Usuários (Loja)
+  A[Visita na página da loja] --> B[Cliente abre formulário de contato]
+  B --> C[Preencher: nome, e-mail, telefone, mensagem]
+  C --> D{Validação dos dados}
+  D -- Erro --> E[Mostrar erros e pedir correção]
+  D -- Ok --> F[Salvar contato no banco (`Contact`)]
+  F --> G[Enviar e-mail de confirmação ao cliente]
+  F --> H[Notificar dono da loja (e-mail/Push)]
+  H --> I[Botão WhatsApp pré-preenchido]
+  I --> J[Cliente inicia conversa no WhatsApp]
+  G --> K[Registrar opt-in para marketing (se autorizado)]
+  K --> L[Exportar/Integrar com CRM (opcional)]
+  
+  style A stroke:#2b6cb0,stroke-width:1px

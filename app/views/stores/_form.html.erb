@@ -52,7 +52,18 @@
   </div>
 
 
-
+<div class="mb-3 p-3 border rounded">
+  <%= form.label :instagram, "Instagram (@)" %>
+  <%= form.text_field :instagram, class: "form-control", placeholder: "@exemplo" %>
+</div>
+<div class="mb-3 p-3 border rounded">
+  <%= form.label :whatsapp, "WhatsApp (link ou número)" %>
+  <%= form.text_field :whatsapp, class: "form-control", placeholder: "https://wa.me/5511999999999" %>
+</div>
+<div class="mb-3 p-3 border rounded">
+  <%= form.label :phone, "Telefone para contato" %>
+  <%= form.text_field :phone, class: "form-control", placeholder: "(11) 99999-9999" %>
+</div>
 
 
   <div class="mb-3 p-3 border rounded">

@@ -1,0 +1,51 @@
+flowchart TD
+  %% Stripe integration flow for this Rails project
+  Start([Start]) --> ClickConnect[User clicks Connect Stripe in Dashboard]
+
+  ClickConnect --> HasAccount{User has stripe_account_id?}
+  HasAccount -- No --> CreateAccount[Backend: create Stripe Account via API]
+  CreateAccount --> SaveAccount[Save stripe_account_id on User record]
+  HasAccount -- Yes --> UseExisting[Use existing stripe_account_id]
+
+  SaveAccount --> GenerateAccountLink
+  UseExisting --> GenerateAccountLink
+
+  GenerateAccountLink[Backend: create Account Link for onboarding] --> RedirectOnboarding[Redirect user to Stripe Onboarding]
+
+  RedirectOnboarding --> OnboardingStatus{User completes onboarding?}
+  OnboardingStatus -- Yes --> WebhookAccountUpdated[Stripe webhook account.updated received]
+  OnboardingStatus -- No --> ReturnToApp[User returned without completing onboarding]
+
+  WebhookAccountUpdated --> CheckCapabilities{charges_enabled and payouts_enabled?}
+  CheckCapabilities -- Yes --> EnableAccount[Mark user as stripe_charges_enabled and stripe_payouts_enabled]
+  CheckCapabilities -- No --> ShowPending[Notify user of required actions]
+
+  EnableAccount --> Connected[User Stripe account ready to accept payments]
+
+  %% Checkout flow
+  Connected --> ChooseProduct[Customer chooses product or number of stores]
+  ChooseProduct --> CreateCheckout[Backend: create Stripe Checkout Session]
+  CreateCheckout --> RedirectCheckout[Redirect customer to Stripe Checkout]
+
+  RedirectCheckout --> PaymentOutcome{Payment outcome}
+  PaymentOutcome -- paid --> WebhookPayment[Stripe webhook checkout.session.completed]
+  PaymentOutcome -- requires_action --> WebhookAsync[Handle async payment or pending PIX]
+  WebhookPayment --> FulfillOrder[Update order, grant resources, save receipt]
+  WebhookAsync --> FulfillOrder
+
+  FulfillOrder --> Notify[Send confirmation email and optional WhatsApp message]
+  Notify --> End([End])
+
+  %% Environment and webhook notes
+  subgraph Config
+    SK[ENV STRIPE_SECRET_KEY]
+    SW[ENV STRIPE_WEBHOOK_SECRET]
+  end
+  SK --> CreateAccount
+  SK --> CreateCheckout
+  SW --> WebhookAccountUpdated
+  SW --> WebhookPayment
+
+  classDef important stroke:#0b5fff,stroke-width:2px;
+  class CreateAccount,CreateCheckout,WebhookPayment,WebhookAccountUpdated important;
+

@@ -1,5 +1,5 @@
 class Admin::SessionsController < ApplicationController
-    layout 'admin'
+    layout "admin"
 
 
     def create

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_16_221326) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_22_185235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,41 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_221326) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "availabilities", force: :cascade do |t|
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.time "end_time"
+    t.time "start_time"
+    t.bigint "store_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "weekday"
+    t.index ["store_id"], name: "index_availabilities_on_store_id"
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "name"
+    t.text "notes"
+    t.string "phone"
+    t.datetime "scheduled_at"
+    t.string "status"
+    t.bigint "store_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_bookings_on_store_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.text "message"
+    t.string "name"
+    t.string "phone"
+    t.bigint "store_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_contacts_on_store_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "date"
@@ -59,10 +94,29 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_221326) do
     t.index ["store_id"], name: "index_photos_on_store_id"
   end
 
+  create_table "store_purchases", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "currency", default: "brl", null: false
+    t.integer "payment_method", default: 0, null: false
+    t.integer "quantity", default: 1, null: false
+    t.integer "status", default: 0, null: false
+    t.string "stripe_checkout_url"
+    t.string "stripe_payment_intent_id"
+    t.string "stripe_session_id"
+    t.integer "total_cents", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["stripe_session_id"], name: "index_store_purchases_on_stripe_session_id", unique: true
+    t.index ["user_id"], name: "index_store_purchases_on_user_id"
+  end
+
   create_table "stores", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "description"
+    t.string "email"
+    t.string "instagram"
     t.string "name"
+    t.string "phone"
     t.string "primary_color"
     t.string "primary_text_color"
     t.string "secondary_color"
@@ -70,6 +124,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_221326) do
     t.string "slug"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.string "whatsapp"
     t.index ["slug"], name: "index_stores_on_slug", unique: true
     t.index ["user_id"], name: "index_stores_on_user_id"
   end
@@ -85,6 +140,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_221326) do
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
     t.integer "role"
+    t.string "stripe_account_id"
+    t.boolean "stripe_charges_enabled", default: false, null: false
+    t.boolean "stripe_payouts_enabled", default: false, null: false
     t.datetime "updated_at", null: false
     t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -93,7 +151,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_221326) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "availabilities", "stores"
+  add_foreign_key "bookings", "stores"
+  add_foreign_key "contacts", "stores"
   add_foreign_key "events", "stores"
   add_foreign_key "photos", "stores"
+  add_foreign_key "store_purchases", "users"
   add_foreign_key "stores", "users"
 end

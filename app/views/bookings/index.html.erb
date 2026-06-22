@@ -1,0 +1,32 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agendamentos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+  <div class="container py-5">
+    <h1 class="mb-4">Agendamentos da loja</h1>
+
+    <% if @bookings.any? %>
+      <div class="list-group">
+        <% @bookings.each do |booking| %>
+          <div class="list-group-item list-group-item-dark mb-2 rounded">
+            <h5 class="mb-1"><%= booking.name %></h5>
+            <p class="mb-1"><strong>Data e Hora:</strong> <%= l(booking.scheduled_at, format: :short_with_day) %></p>
+            <p class="mb-1"><strong>E-mail:</strong> <%= booking.email %></p>
+            <p class="mb-1"><strong>Telefone:</strong> <%= booking.phone %></p>
+            <p class="mb-1"><strong>Status:</strong> <%= booking.status.presence || "pending" %></p>
+            <p class="mb-0"><%= simple_format(booking.notes) %></p>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-muted">Nenhum agendamento registrado.</p>
+    <% end %>
+
+    <div class="mt-4">
+      <%= link_to "Voltar ao dashboard", dashboard_path, class: "btn btn-outline-light" %>
+    </div>
+  </div>
+</body>

@@ -5,7 +5,7 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Email</th>
+        <th>E-mail</th>
         <th>Tipo</th>
         <th>Qtd loja</th>
         <th>Criado em</th>
@@ -20,8 +20,12 @@
           <td><%= user.role %></td>
           <td><%= user.stores.count %></td>
           <td><%= user.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+          <td>
+            <%= button_to "Excluir", admin_user_path(user), method: :delete, data: { confirm: "Tem certeza que deseja excluir este usuário?" }, class: "btn btn-danger btn-sm" %>
         </tr>
+        
       <% end %>
+      
     </tbody>
   </table>
 

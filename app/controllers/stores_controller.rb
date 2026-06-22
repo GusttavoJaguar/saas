@@ -1,7 +1,7 @@
 class StoresController < ApplicationController
   before_action :authenticate_user!
   before_action :set_store, only: %i[show edit update destroy]
-
+  
   # GET /stores
   def index
     @stores = Store.new
@@ -12,7 +12,9 @@ class StoresController < ApplicationController
   def show
     @user = User.find_by!(username: params[:username])
     @stores = @user.stores
-  
+    @contact = Contact.new
+    @contacts = @store.contacts.order(created_at: :desc)
+    @bookings = @store.bookings.order(created_at: :desc)
   end
 
   # GET /stores/new
@@ -41,6 +43,30 @@ class StoresController < ApplicationController
 
   # PATCH/PUT /stores/1
   def update
+
+    @store = Store.friendly.find(params[:id])
+
+
+    if params[:remove_logo] == '1'
+      @store.logo.purge
+    end
+
+
+
+    if params[:remove_gallery_images] == '1'
+      @store.gallery_images.purge
+    end
+
+  if params[:store][:logo].present?
+    @store.logo.attach(params[:store][:logo])
+  end
+
+
+   if params[:store][:gallery_images].present?
+    @store.gallery_images.attach(params[:store][:gallery_images])
+  end
+
+
     respond_to do |format|
       if @store.update(store_params)
         format.html { redirect_to @store, notice: "Store atualizada com sucesso.", status: :see_other }
@@ -72,12 +98,14 @@ class StoresController < ApplicationController
     params.require(:store).permit(
       :name,
       :description,
+      :whatsapp, 
+      :instagram,
+      :phone,
       :primary_color,
       :secondary_color,
-      :navbar_text_color,
-      :page_text_color,
-      :logo,
-      gallery_images: []
+      :primary_text_color,
+      :secondary_text_color,
+      
     )
   end
 end

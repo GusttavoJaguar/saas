@@ -1,0 +1,30 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contatos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+  <div class="container py-5">
+    <h1 class="mb-4">Mensagens de contato</h1>
+
+    <% if @contacts.any? %>
+      <div class="list-group">
+        <% @contacts.each do |contact| %>
+          <div class="list-group-item list-group-item-dark mb-2 rounded">
+            <h5 class="mb-1"><%= contact.name %></h5>
+            <p class="mb-1"><strong>E-mail:</strong> <%= contact.email %></p>
+            <p class="mb-1"><strong>Telefone:</strong> <%= contact.phone.presence || "Não informado" %></p>
+            <p class="mb-0"><%= simple_format(contact.message) %></p>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-muted">Nenhuma mensagem de contato registrada.</p>
+    <% end %>
+
+    <div class="mt-4">
+      <%= link_to "Voltar ao dashboard", dashboard_path, class: "btn btn-outline-light" %>
+    </div>
+  </div>
+</body>

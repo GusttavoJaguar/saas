@@ -9,3 +9,11 @@
  * Consider organizing styles into separate files for maintainability.
  */
 @import "bootstrap";
+
+.navbar {
+  z-index: 9999 !important; /* força a navbar a ficar acima */
+}
+
+.card, .card-body, .shadow-sm {
+  z-index: 0 !important; /* garante que os cards fiquem abaixo */
+}

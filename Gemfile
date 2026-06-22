@@ -71,4 +71,4 @@ gem "bootstrap"
 
 gem "sassc-rails"
 
-gem 'friendly_id', '~> 5.5.0'
+gem "friendly_id", "~> 5.5.0"

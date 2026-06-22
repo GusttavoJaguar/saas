@@ -1,0 +1,19 @@
+flowchart TD
+  %% Fluxo de Agenda (Agendamento de Serviços) - simplificado
+  A[Loja: configura disponibilidade - janelas, dias, horários] --> B[Publica calendário na página da loja]
+  B --> C[Cliente escolhe data e horário]
+  C --> D[Formulário: nome, contato, notas]
+  D --> E{Verificar disponibilidade / conflitos}
+  E -- Conflito --> F[Informar e sugerir horários alternativos]
+  E -- Disponível --> G[Criar reserva - Booking pendente]
+  G --> H[Enviar confirmação ao cliente - e-mail/WhatsApp]
+  G --> I[Enviar notificação ao prestador]
+  H --> J[Lembrete automático - 24h / 1h antes]
+  I --> K[Admin pode cancelar ou reagendar]
+  K --> L[Atualizar status e notificar cliente]
+
+  subgraph opcional
+    M[Sincronizar com Google/Outlook] --> N[Bloquear horários externos]
+  end
+
+  style A stroke:#2b6cb0,stroke-width:1px

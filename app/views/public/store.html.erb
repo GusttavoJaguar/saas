@@ -3,6 +3,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SaaS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/application.css">  
   </head>
 <nav class="navbar navbar-expand-lg" style="position: fixed; top: 0; width: 100%; background-color: <%= @store&.primary_color || '#fff' %>; color: <%= @store&.primary_text_color || @store&.text_color_for(@store&.primary_color) %>">
   <div class="container">
@@ -19,6 +21,7 @@
 </nav>
 
 
+style: "color: #{@store.primary_text_color || @store.text_color_for(@store.primary_color)};"
 
 <!-- background -->
 <div class="py-5" style="background-color: <%= @store&.secondary_color || '#fff' %>; color: <%= @store&.secondary_text_color || @store&.text_color_for(@store&.secondary_color) %>">
@@ -26,7 +29,7 @@
   </div>
 
 
-<div class="container mt-5 text-center">
+<div class="container mt-5 text-center" id="inicio">
 
   <!-- LOGO -->
   
@@ -48,14 +51,20 @@
 
   <!-- DESCRIÇÃO -->
   <% if @store&.description.present? %>
-    <p class="mx-auto" style="max-width: 600px;">
+    <p class="mx-auto" style="max-width: 600px;" id="sobre">
       <%= @store.description %>
     </p>
+    
   <% else %>
     <p class="text-muted mx-auto" style="max-width: 600px;">
       Bem-vindo à minha loja! Aqui você acessou uma página em branco. Acesse a página de login para criar sua loja e personalizar esta página com suas informações, produtos e muito mais.
     </p>
-    <%= link_to "Fazer Login", new_user_session_path %>
+    <div class="d-flex justify-content-center gap-2 mt-4">
+      <%= link_to "Fazer Login", new_user_session_path, class: "btn btn-outline-primary" %>
+      <a href="https://book.stripe.com/test_9B6bJ17KDh2j9mX6MSdZ601" target="_blank" rel="noopener" class="btn btn-success">
+        Pagar com Stripe
+      </a>
+    </div>
   <% end %>
 
 </div>
@@ -63,7 +72,7 @@
 <!-- GALERIA -->
 
 <% if @store&.gallery_images.present? %>
-  <div class="container mt-5">
+  <div class="container mt-5" id="galeria">
     <h2 class="text-center mb-4">Galeria</h2>
     <div class="row justify-content-center">
       <% @store.gallery_images.each do |image| %>
@@ -79,6 +88,123 @@
   </div>
 <% end %>
 
+
+<div class="container mt-5" id="agenda">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card shadow-sm mb-4">
+            <div class="card-body">
+              <h3 class="h5">Agende seu atendimento</h3>
+              <% b = @booking || Booking.new %>
+              <%= form_with model: [@store, b], url: store_bookings_path(@store), local: true do |form| %>
+                <% if b.errors.any? %>
+                  <div class="alert alert-danger">
+                    <ul class="mb-0">
+                      <% b.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+                <div class="mb-3">
+                  <%= form.label :name, "Nome" %>
+                  <%= form.text_field :name, class: "form-control", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= form.label :email, "E-mail" %>
+                  <%= form.email_field :email, class: "form-control", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= form.label :phone, "Telefone" %>
+                  <%= form.text_field :phone, class: "form-control", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= form.label :scheduled_at, "Data e horário" %>
+                  <% available = @store.available_slots(days: 14, interval: 30) %>
+                  <% if available.any? %>
+                    <%= form.select :scheduled_at, options_for_select(available.map { |s| [l(s, format: :short_with_day), s.iso8601] }), {}, class: "form-select" %>
+                  <% else %>
+                    <p class="text-muted">No momento não há horários disponíveis. Entre em contato para mais opções.</p>
+                  <% end %>
+                </div>
+                <div class="mb-3">
+                  <%= form.label :notes, "Observações" %>
+                  <%= form.text_area :notes, class: "form-control", rows: 3 %>
+                </div>
+                <%= form.submit "Enviar agendamento", class: "btn btn-primary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card shadow-sm mb-4">
+            <div class="card-body">
+              <h3 class="h5">Fale com o responsável</h3>
+              <% c = @contact || Contact.new %>
+              <%= form_with model: [@store, c], url: store_contacts_path(@store), local: true do |form| %>
+                <% if c.errors.any? %>
+                  <div class="alert alert-danger">
+                    <ul class="mb-0">
+                      <% c.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+                <div class="mb-3">
+                  <%= form.label :name, "Nome" %>
+                  <%= form.text_field :name, class: "form-control", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= form.label :email, "E-mail" %>
+                  <%= form.email_field :email, class: "form-control", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= form.label :phone, "Telefone" %>
+                  <%= form.text_field :phone, class: "form-control", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= form.label :message, "Mensagem" %>
+                  <%= form.text_area :message, class: "form-control", rows: 4, required: true %>
+                </div>
+                <%= form.submit "Enviar mensagem", class: "btn btn-secondary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<div class="container text-center mt-5" id="contato">
+    <div class="row">
+      <div class="col">
+        <% if @store.instagram.present? %>
+          <p>
+            <i class="fab fa-instagram" style="font-size: 30px;"></i>
+            <%= link_to "@#{@store.instagram}", "https://instagram.com/#{@store.instagram}", target: "_blank" %>
+          </p>
+        <% end %>
+
+        <% if @store.whatsapp.present? %>
+          <p>
+            <i class="fab fa-whatsapp" style="font-size: 30px;"></i>
+            <%= link_to "WhatsApp", @store.whatsapp, target: "_blank" %>
+          </p>
+        <% end %>
+    
+     
+        <% if @store.phone.present? %>
+          <p>
+            <i class="fas fa-phone" style="font-size: 30px;"></i>
+            <%= @store.phone %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>  
+<br><br><br>
 <footer class="text-center p-3" style="position: fixed; bottom: 0; width: 100%; background-color: <%= @store&.primary_color || '#fff' %>; color: <%= @store&.primary_text_color || @store&.text_color_for(@store&.primary_text_color) %> ">
-  © 2026 Gusttavo Jaguar. Todos os direitos reservados.
+
+© 2026 Gusttavo Jaguar. Todos os direitos reservados.
 </footer>

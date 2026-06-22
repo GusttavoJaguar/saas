@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   resources :stores do
     resources :events
     resources :photos
+    resources :bookings, only: [ :index, :create, :new ]
+    resources :contacts, only: [ :index, :create, :new ]
+    resources :availabilities, only: [ :index, :create, :destroy ]
   end
 
   devise_for :users
@@ -24,27 +27,27 @@ Rails.application.routes.draw do
     post "admin/login", to: "admin/sessions#create"
     delete "admin/logout", to: "admin/sessions#destroy"
   end
-  
+
   get "dashboard", to: "dashboard#index"
-  
+
 
   namespace :admin do
     get "dashboard", to: "dashboard#index"
-    resources :stores, only: [:index, :show, :edit, :destroy]
-    resources :users, only: [:index, :show, :edit, :destroy]
+    resources :stores, only: [ :index, :show, :edit, :destroy ]
+    resources :users, only: [ :index, :show, :edit, :destroy ]
   end
-  
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#home", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  
-  # Página pública
+   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
+   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+
+   # Página pública
    get "/public/store/:id", to: "public#store", as: :public_store
    get "/home", to: "public#home"
 end

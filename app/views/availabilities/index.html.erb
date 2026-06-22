@@ -1,0 +1,90 @@
+<h1>Gerenciar horários de atendimento e contatos</h1>
+<div class="container">
+  <div class="card mb-4">
+    <div class="card-body">
+      <h2 class="h5">Adicionar horário</h2>
+      <%= form_with model: [@store, Availability.new], url: store_availabilities_path(@store), local: true do |f| %>
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <%= f.label :weekday, "Dia da semana" %>
+            <%= f.select :weekday, I18n.t('date.day_names').each_with_index.map { |d, i| [d, i] }, {}, class: "form-select" %>
+          </div>
+          <div class="col-md-3 mb-3">
+            <%= f.label :start_time, "Início" %>
+            <%= f.time_field :start_time, class: "form-control" %>
+          </div>
+          <div class="col-md-3 mb-3">
+            <%= f.label :end_time, "Fim" %>
+            <%= f.time_field :end_time, class: "form-control" %>
+          </div>
+          <div class="col-md-3 mb-3 d-flex align-items-end">
+            <%= f.submit "Adicionar", class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2 class="h5">Horários configurados</h2>
+      <% if @availabilities.any? %>
+        <ul class="list-unstyled mt-3">
+          <% @availabilities.each do |a| %>
+            <li class="mb-2">
+              <strong><%= I18n.t('date.day_names')[a.weekday] %></strong>: <%= a.start_time.strftime('%H:%M') %> - <%= a.end_time.strftime('%H:%M') %>
+              <%= link_to "Remover", store_availability_path(@store, a), method: :delete, data: { confirm: "Remover este horário?" }, class: "btn btn-sm btn-outline-danger ms-2" %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-muted">Nenhum horário definido ainda.</p>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card bg-secondary text-light shadow-sm">
+                <div class="card-body">
+                    <h2 class="h5">Próximos agendamentos</h2>
+                    <% if @bookings.any? %>
+                        <ul class="list-unstyled mt-3">
+                            <% @bookings.each do |booking| %>
+                                <li class="mb-3">
+                                    <strong><%= booking.store.name %></strong><br>
+                                    <strong><%= booking.name %></strong> - <%= l(booking.scheduled_at, format: :short_with_day) %><br>
+                                    <small><%= booking.email %> • <%= booking.phone %></small>
+                                </li>
+                            <% end %>
+                        </ul>
+                    <% else %>
+                        <p class="text-muted">Nenhum agendamento pendente encontrado.</p>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card bg-secondary text-light shadow-sm">
+                <div class="card-body">
+                    <h2 class="h5">Últimos contatos</h2>
+                    <% if @contacts.any? %>
+                        <ul class="list-unstyled mt-3">
+                            <% @contacts.each do |contact| %>
+                                <li class="mb-3">
+                                    <strong><%= contact.store.name %></strong> <br>
+                                    <strong><%= contact.name %></strong> - <%= contact.email %><br>
+                                    <small><%= contact.phone %> • <%= truncate(contact.message, length: 70) %></small>
+                                </li>
+                            <% end %>
+                        </ul>
+                    <% else %>
+                        <p class="text-muted">Nenhuma mensagem de contato recebida ainda.</p>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

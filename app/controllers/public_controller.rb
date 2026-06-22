@@ -1,5 +1,4 @@
 class PublicController < ApplicationController
-  
   def home
     @user = User.find_by(username: params[:username])
 
@@ -7,9 +6,9 @@ class PublicController < ApplicationController
         redirect_to root_path, alert: "Usuário não encontrado"
         return
       end
-    
+
     @store = @user.stores.first
-    
+
     if user_signed_in?
       @stores = current_user.stores
     else
@@ -26,5 +25,4 @@ class PublicController < ApplicationController
   def store
     @store = Store.friendly.find(params[:id])
   end
-
 end

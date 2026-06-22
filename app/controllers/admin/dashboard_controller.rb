@@ -11,10 +11,8 @@ class Admin::DashboardController < ApplicationController
     @user_count = @users.count
   end
 
-  
+
   def require_admin
     redirect_to root_path unless current_user.admin?
   end
-
-
 end
