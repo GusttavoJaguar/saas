@@ -52,23 +52,19 @@ class StoresController < ApplicationController
     end
 
 
-
-    if params[:remove_gallery_images] == '1'
-      @store.gallery_images.purge
-    end
-
   if params[:store][:logo].present?
     @store.logo.attach(params[:store][:logo])
   end
 
 
-   if params[:store][:gallery_images].present?
-    @store.gallery_images.attach(params[:store][:gallery_images])
-  end
-
+   
 
     respond_to do |format|
       if @store.update(store_params)
+        if params[:store][:gallery_images].present?
+          @store.gallery_images.attach(params[:store][:gallery_images])
+        end
+    
         format.html { redirect_to @store, notice: "Store atualizada com sucesso.", status: :see_other }
         format.json { render :show, status: :ok, location: @store }
       else
@@ -88,6 +84,16 @@ class StoresController < ApplicationController
     end
   end
 
+
+  def remove_gallery_image
+    store = Store.friendly.find(params[:id])
+    blob = ActiveStorage::Blob.find(params[:blob_id])
+    attachment = store.gallery_images.find_by(blob_id: blob.id)
+    attachment.purge
+    redirect_to edit_store_path(@store), notice: "Imagem removida."
+  end
+
+
   private
 
   def set_store
@@ -105,7 +111,10 @@ class StoresController < ApplicationController
       :secondary_color,
       :primary_text_color,
       :secondary_text_color,
-      
+      :logo
     )
+
+
+    
   end
 end

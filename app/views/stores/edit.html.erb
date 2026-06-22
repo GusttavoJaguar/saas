@@ -15,6 +15,29 @@
 </div>
 <br>
 
+<% if @store.gallery_images.attached? %>
+    <div class="mb-3">
+      <label>Imagens da galeria atuais</label>
+      <div class="row">
+        <% @store.gallery_images.each_with_index do |img, index| %>
+          <div class="col-md-4 mb-4">
+          <div class="card shadow-sm border-0 h-100">
+            <%= image_tag img,
+              class: "card-img-top",
+              style: "height: 250px; object-fit: cover;" %>
+               <div class="form-check">
+                <%= check_box_tag "remove_gallery[#{index}]", '1', false, class: "form-check-input" %>
+               <br>
+                <%= button_to "Remover foto", remove_gallery_image_store_path(@store, blob_id: img.blob_id), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Tem certeza?" } %>
+              </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+
 <div>
   <%= link_to "Show this store", @store, class: "btn btn-primary" %> |
   <%= link_to "Back to stores", stores_path, class: "btn btn-secondary" %>

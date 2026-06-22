@@ -1,0 +1,69 @@
+graph TD
+    %% Estilos
+    classDef user fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef public fill:#bbf,stroke:#333,stroke-width:2px;
+    classDef admin fill:#fbb,stroke:#333,stroke-width:2px;
+    classDef data fill:#dfd,stroke:#333,stroke-width:1px;
+
+    %% Fluxo de Autenticação
+    Start((Início)) --> Home[Public Home /]
+    Home --> Login{Autenticação}
+    Login -- Não possui conta --> Register[Registro /users/sign_up]
+    Login -- Possui conta --> SignIn[Login /users/sign_in]
+    Register --> Dashboard
+    SignIn --> Dashboard
+
+    %% Fluxo do Usuário (Dashboard)
+    subgraph Dashboard_Area [Área do Usuário]
+        Dashboard[Dashboard /dashboard]
+        Dashboard --> ListStores[Listar Minhas Lojas]
+        Dashboard --> CreateStore[Criar Nova Loja /stores/new]
+        
+        ListStores --> ManageStore[Gerenciar Loja /stores/:id]
+        ManageStore --> EditStore[Editar Configurações]
+        ManageStore --> ManagePhotos[Gerenciar Galeria /photos]
+        ManageStore --> ManageEvents[Gerenciar Eventos /events]
+        ManageStore --> DeleteStore[Excluir Loja]
+    end
+
+    %% Relacionamentos de Dados
+    subgraph Data_Models [Modelos de Dados]
+        UserModel[(User)]
+        StoreModel[(Store)]
+        PhotoModel[(Photo)]
+        EventModel[(Event)]
+        
+        UserModel -- "1:N" --> StoreModel
+        StoreModel -- "1:N" --> PhotoModel
+        StoreModel -- "1:N" --> EventModel
+        StoreModel -- "1:1" --> ActiveStorageLogo[Logo Image]
+        StoreModel -- "1:N" --> ActiveStorageGallery[Gallery Images]
+    end
+
+    %% Fluxo Público (Landing Pages)
+    subgraph Public_Area [Área Pública]
+        PublicPage[Landing Page /:username]
+        PublicPage --> ViewInfo[Visualizar Descrição]
+        PublicPage --> ViewGallery[Visualizar Galeria de Fotos]
+        PublicPage --> ViewEvents[Visualizar Eventos]
+        PublicPage --> CustomStyle[Estilização Dinâmica: Cores Primária/Secundária]
+    end
+
+    %% Fluxo de Administração
+    subgraph Admin_Area [Área Administrativa]
+        AdminDash[Admin Dashboard /admin]
+        AdminDash --> ManageAllUsers[Gerenciar Usuários]
+        AdminDash --> ManageAllStores[Gerenciar Todas as Lojas]
+    end
+
+    %% Conexões entre áreas
+    Dashboard -.-> UserModel
+    ManageStore -.-> StoreModel
+    PublicPage -.-> StoreModel
+    SignIn -- Se Admin --> AdminDash
+    
+    %% Aplicação de Classes
+    class Start,Home,PublicPage,ViewInfo,ViewGallery,ViewEvents,CustomStyle public;
+    class Login,Register,SignIn,Dashboard,ListStores,CreateStore,ManageStore,EditStore,ManagePhotos,ManageEvents,DeleteStore user;
+    class AdminDash,ManageAllUsers,ManageAllStores admin;
+    class UserModel,StoreModel,PhotoModel,EventModel,ActiveStorageLogo,ActiveStorageGallery data;

@@ -1,0 +1,49 @@
+graph TD
+    subgraph "ACESSO PÚBLICO"
+        START((Início)) --> HOME[GET /home<br/>Homepage Pública]
+        HOME -->|Ver Loja| PUB_STORE[GET /public/store/:id<br/>Página da Loja]
+        PUB_STORE -->|Agendar| NEW_BOOKING[GET /stores/:id/bookings/new]
+        PUB_STORE -->|Contato| NEW_CONTACT[GET /stores/:id/contacts/new]
+    end
+
+    subgraph "AUTENTICAÇÃO (Devise)"
+        HOME -->|Login| SIGN_IN[GET /users/sign_in]
+        HOME -->|Cadastro| SIGN_UP[GET /users/sign_up]
+        SIGN_IN -->|Sucesso| AUTH_CHECK{Tipo de Usuário?}
+        AUTH_CHECK -->|User| DASH_USR[Dashboard Usuário<br/>/dashboard]
+        AUTH_CHECK -->|Admin| DASH_ADM[Dashboard Admin<br/>/admin/dashboard]
+    end
+
+    subgraph "ÁREA DO USUÁRIO (Lojista)"
+        DASH_USR --> MY_STORES[Minhas Lojas<br/>/stores]
+        MY_STORES --> NEW_STORE[Nova Loja]
+        MY_STORES --> MANAGE_STORE[Gerenciar Loja]
+        
+        MANAGE_STORE --> EVENTS[Eventos]
+        MANAGE_STORE --> PHOTOS[Fotos]
+        MANAGE_STORE --> BOOKINGS[Agendamentos]
+        MANAGE_STORE --> CONTACTS[Contatos]
+        MANAGE_STORE --> AVAIL[Disponibilidades]
+    end
+
+    subgraph "ÁREA ADMINISTRATIVA"
+        DASH_ADM --> ADM_STORES[Gerenciar Todas Lojas]
+        DASH_ADM --> ADM_USERS[Gerenciar Usuários]
+    end
+
+    subgraph "MODELO DE DADOS (Relacionamentos)"
+        USER((USER)) -- "1:N" --> STORE((STORE))
+        STORE -- "1:N" --> EVENT((EVENT))
+        STORE -- "1:N" --> PHOTO((PHOTO))
+        STORE -- "1:N" --> BOOKING((BOOKING))
+        STORE -- "1:N" --> CONTACT((CONTACT))
+        STORE -- "1:N" --> AVAILABILITY((AVAILABILITY))
+    end
+
+    %% Estilização
+    style START fill:#f9f,stroke:#333,stroke-width:2px
+    style DASH_USR fill:#d5e8d4,stroke:#82b366
+    style DASH_ADM fill:#ffe6cc,stroke:#d79b00
+    style AUTH_CHECK fill:#fff2cc,stroke:#d6b656
+    style USER fill:#dae8fc,stroke:#6c8ebf
+    style STORE fill:#dae8fc,stroke:#6c8ebf

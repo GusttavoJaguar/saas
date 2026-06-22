@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resources :stores do
     resources :events
+    delete :remove_gallery_image, on: :member  
     resources :photos
     resources :bookings, only: [ :index, :create, :new ]
     resources :contacts, only: [ :index, :create, :new ]
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
     get "dashboard", to: "dashboard#index"
     resources :stores, only: [ :index, :show, :edit, :destroy ]
     resources :users, only: [ :index, :show, :edit, :destroy ]
+    
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
