@@ -8,7 +8,7 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
-@import "bootstrap";
+/*@import "bootstrap";*/
 
 .navbar {
   z-index: 9999 !important; /* força a navbar a ficar acima */
