@@ -6,7 +6,7 @@ class BookingsController < ApplicationController
 
   def index
     @bookings = @store.bookings.order(scheduled_at: :asc)
-  endhas_many :available_slots, dependent: :destroy
+  end
 
   def create
     @booking = @store.bookings.new(booking_params.except(:scheduled_at))
