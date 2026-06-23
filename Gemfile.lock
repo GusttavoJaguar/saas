@@ -426,7 +426,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  bootstrap
+  bootstrap (~> 5.3.3)
   brakeman
   bundler-audit
   capybara
