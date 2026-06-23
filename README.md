@@ -38,4 +38,8 @@ A configuração do projeto com `Kamal` e `Dockerfile` revela uma visão madura 
 4. Processamento de Imagens (Active Storage)
 A inclusão da gem `image_processing` sugere que a aplicação permite o upload e a manipulação de imagens (ex: logotipos, banners para as landing pages) utilizando o Active Storage do Rails. Isso envolve lidar com armazenamento em nuvem (S3, GCS) e redimensionamento dinâmico de arquivos de mídia.
 
-<img width="1287" height="617" alt="image" src="https://github.com/user-attachments/assets/5cbc6115-6895-4c7b-80b1-c20f08842299" />
+
+<img width="1789" height="1894" alt="diagrama_de_fluxo" src="https://github.com/user-attachments/assets/1c50dd71-d760-44f4-a313-719970444cff" />
+<br>
+</hr>
+<img width="1302" height="714" alt="image" src="https://github.com/user-attachments/assets/593757b0-adb6-4725-80c2-ad69b8280607" />
