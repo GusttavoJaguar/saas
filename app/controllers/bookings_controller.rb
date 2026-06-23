@@ -2,7 +2,7 @@ class BookingsController < ApplicationController
   before_action :set_store
   before_action :authenticate_user!, only: [ :index ]
   before_action :authorize_owner!, only: [ :index ]
-  belongs_to :store
+
 
   def index
     @bookings = @store.bookings.order(scheduled_at: :asc)
